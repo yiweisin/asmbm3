@@ -88,55 +88,6 @@ export const accountApi = {
     api.put("/accounts/change-password", passwordData),
 };
 
-// Posts APIs
-export const postsApi = {
-  // Get all posts for the current user
-  getAllPosts: (params) => api.get("/posts", { params }),
-
-  // Get a specific post by ID
-  getPostById: (id) => api.get(`/posts/${id}`),
-
-  // Create a new post
-  createPost: (postData) => api.post("/posts", postData),
-
-  // Update an existing post
-  updatePost: (id, postData) => api.put(`/posts/${id}`, postData),
-
-  // Delete a post
-  deletePost: (id) => api.delete(`/posts/${id}`),
-
-  // Schedule a post for future publishing
-  schedulePost: (postData) => api.post("/posts/schedule", postData),
-
-  // Get all scheduled posts
-  getScheduledPosts: () => api.get("/posts/scheduled"),
-
-  // Cancel a scheduled post
-  cancelScheduledPost: (id) => api.delete(`/posts/scheduled/${id}`),
-};
-
-// Analytics APIs
-export const analyticsApi = {
-  // Get general analytics for all accounts
-  getAnalytics: (params) => api.get("/analytics", { params }),
-
-  // Get engagement rate analytics
-  getEngagementRate: (params) => api.get("/analytics/engagement", { params }),
-
-  // Get follower growth analytics
-  getFollowerGrowth: (params) => api.get("/analytics/followers", { params }),
-
-  // Get analytics for a specific post
-  getPostPerformance: (postId, params) =>
-    api.get(`/analytics/posts/${postId}`, { params }),
-
-  // Get analytics for a date range
-  getAnalyticsForDateRange: (startDate, endDate) =>
-    api.get("/analytics/range", {
-      params: { startDate, endDate },
-    }),
-};
-
 // Social Account APIs
 export const socialAccountApi = {
   // Get all connected social media accounts
@@ -149,33 +100,6 @@ export const socialAccountApi = {
   // Disconnect a social media account
   disconnectAccount: (provider) =>
     api.delete(`/social-accounts/disconnect/${provider}`),
-
-  // Get available social media providers
-  getAvailableProviders: () => api.get("/social-accounts/providers"),
-
-  // Update social account settings
-  updateSocialAccountSettings: (provider, settings) =>
-    api.put(`/social-accounts/settings/${provider}`, settings),
-};
-
-// Team APIs (for business accounts)
-export const teamApi = {
-  // Get all team members (including sub-accounts)
-  getTeamMembers: () => api.get("/team/members"),
-
-  // Update a team member's permissions
-  updateMemberPermissions: (memberId, permissions) =>
-    api.put(`/team/members/${memberId}/permissions`, permissions),
-
-  // Invite a new member to join a team
-  inviteMember: (email, role) => api.post("/team/invite", { email, role }),
-
-  // Get pending invitations
-  getPendingInvitations: () => api.get("/team/invitations"),
-
-  // Cancel a pending invitation
-  cancelInvitation: (invitationId) =>
-    api.delete(`/team/invitations/${invitationId}`),
 };
 
 export default api;

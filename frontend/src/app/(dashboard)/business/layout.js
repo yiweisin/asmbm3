@@ -4,26 +4,57 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
 
 export default function BusinessLayout({ children }) {
   const { user, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
 
-  // Verify user is logged in and has correct account type
-  if (!user) {
-    return null; // Will redirect in useEffect
-  }
-
-  if (user.accountType !== "business") {
-    // Redirect to appropriate dashboard
-    if (user.accountType === "individual") {
-      router.push("/individual");
-    } else if (user.accountType === "subaccount") {
-      router.push("/subaccount");
+  // Handle clicks outside the dropdown to close it
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
     }
-    return null;
-  }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Handle redirects in useEffect to avoid React hooks errors
+  useEffect(() => {
+    // Verify user is logged in and has correct account type
+    if (!user) {
+      return; // Will redirect in AuthContext
+    }
+
+    if (user.accountType !== "business") {
+      // Redirect to appropriate dashboard
+      if (user.accountType === "individual") {
+        router.push("/individual");
+      } else if (user.accountType === "subaccount") {
+        router.push("/subaccount");
+      }
+    }
+  }, [user, router]);
+
+  // Handle clicks outside the dropdown to close it
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const navLinks = [
     { href: "/business", label: "Dashboard" },
@@ -31,7 +62,6 @@ export default function BusinessLayout({ children }) {
     { href: "/business/posts", label: "Posts" },
     { href: "/business/analytics", label: "Analytics" },
     { href: "/business/platforms", label: "Platforms" },
-    { href: "/business/profile", label: "Profile" },
   ];
 
   return (
@@ -62,14 +92,53 @@ export default function BusinessLayout({ children }) {
                 ))}
               </div>
             </div>
-            <div className="flex items-center">
-              <span className="mr-4">Welcome, {user?.username}</span>
+            <div className="flex items-center relative" ref={dropdownRef}>
               <button
-                onClick={logout}
-                className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm"
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="flex items-center space-x-1 px-3 py-2 rounded hover:bg-indigo-500"
               >
-                Logout
+                <span>Welcome, {user?.username}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    showDropdown ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
               </button>
+
+              {/* Dropdown Menu */}
+              {showDropdown && (
+                <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+                  <Link
+                    href="/business/profile"
+                    className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${
+                      pathname === "/business/profile" ? "bg-gray-100" : ""
+                    }`}
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setShowDropdown(false);
+                      logout();
+                    }}
+                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
