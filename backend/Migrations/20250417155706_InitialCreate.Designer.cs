@@ -11,7 +11,7 @@ using SocialMediaManager.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250417084957_InitialCreate")]
+    [Migration("20250417155706_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

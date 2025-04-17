@@ -1,3 +1,4 @@
+// Data/ApplicationDbContext.cs
 using Microsoft.EntityFrameworkCore;
 using SocialMediaManager.Models;
 

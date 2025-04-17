@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/yiweisin/GitHub/asmbm3/backend/backend.csproj": {}
+    "/Users/yiweisin/Desktop/asmbm3/backend/backend.csproj": {}
   },
   "projects": {
-    "/Users/yiweisin/GitHub/asmbm3/backend/backend.csproj": {
+    "/Users/yiweisin/Desktop/asmbm3/backend/backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yiweisin/GitHub/asmbm3/backend/backend.csproj",
+        "projectUniqueName": "/Users/yiweisin/Desktop/asmbm3/backend/backend.csproj",
         "projectName": "backend",
-        "projectPath": "/Users/yiweisin/GitHub/asmbm3/backend/backend.csproj",
+        "projectPath": "/Users/yiweisin/Desktop/asmbm3/backend/backend.csproj",
         "packagesPath": "/Users/yiweisin/.nuget/packages/",
-        "outputPath": "/Users/yiweisin/GitHub/asmbm3/backend/obj/",
+        "outputPath": "/Users/yiweisin/Desktop/asmbm3/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/yiweisin/.nuget/NuGet/NuGet.Config"
@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
+            "Discord.Net": {
+              "target": "Package",
+              "version": "[3.17.2, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.4, )"
@@ -81,6 +85,14 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[8.1.1, )"
+            },
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[22.5.0, )"
+            },
+            "TweetinviAPI": {
+              "target": "Package",
+              "version": "[5.0.4, )"
             }
           },
           "imports": [
