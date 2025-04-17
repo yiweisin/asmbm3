@@ -14,11 +14,11 @@ export default function Home() {
     if (!loading && isAuthenticated && user) {
       // Redirect to the appropriate dashboard based on account type
       if (user.accountType === "individual") {
-        router.push("/dashboard");
+        router.push("/individual");
       } else if (user.accountType === "business") {
-        router.push("/business-dashboard");
+        router.push("/business");
       } else if (user.accountType === "subaccount") {
-        router.push("/subaccount-dashboard");
+        router.push("/subaccount");
       }
     }
   }, [isAuthenticated, loading, user, router]);

@@ -20,11 +20,11 @@ export default function Login() {
     // If already authenticated, redirect to appropriate dashboard
     if (isAuthenticated && user) {
       if (user.accountType === "individual") {
-        router.push("/dashboard");
+        router.push("/individual");
       } else if (user.accountType === "business") {
-        router.push("/business-dashboard");
+        router.push("/business");
       } else if (user.accountType === "subaccount") {
-        router.push("/subaccount-dashboard");
+        router.push("/subaccount");
       }
     }
   }, [isAuthenticated, user, router]);
